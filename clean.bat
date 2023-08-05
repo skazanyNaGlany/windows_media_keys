@@ -1,0 +1,2 @@
+del *.txt
+del *.exe

@@ -34,6 +34,8 @@ func (mke *MediaKeysEmulator) Init() {
 
 func (mke *MediaKeysEmulator) EmulateInLoop() {
 	for {
+		time.Sleep(100 * time.Millisecond)
+
 		controlPressed, _, _ := mke.procGetAsyncKeyState.Call(uintptr(VK_CONTROL))
 
 		if controlPressed == 0 {
@@ -91,7 +93,5 @@ func (mke *MediaKeysEmulator) EmulateInLoop() {
 				uintptr(0),
 				uintptr(0))
 		}
-
-		time.Sleep(100 * time.Millisecond)
 	}
 }

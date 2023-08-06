@@ -2,14 +2,14 @@
 Media keys on Windows, without actual media keys.
 
 ### Keymap
-Ctrl-Up - Volume Up
+Esc-Up - Volume Up
 
-Ctrl-Down - Volume Down
+Esc-Down - Volume Down
 
-Ctrl-Left - Previous Media
+Esc-Left - Previous Media
 
-Ctrl-Right - Next Media
+Esc-Right - Next Media
 
-Ctrl-F11 - Toggle Mute
+Esc-F11 - Toggle Mute
 
-Ctrl-F12 - Toggle Play
+Esc-F12 - Toggle Play

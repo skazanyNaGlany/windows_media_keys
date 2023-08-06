@@ -14,10 +14,10 @@ const ABOUT_MESSAGE = `Emulate Windows media keys
 
 Version %v
 
-Ctrl-Up - VOLUME UP
-Ctrl-Down - VOLUME DOWN
-Ctrl-Left - MEDIA PREVIOUS
-Ctrl-Right - MEDIA NEXT
-Ctrl-F11 - VOLUME MUTE/UNMUTE
-Ctrl-F12 - MEDIA PLAY/PAUSE`
+Esc-Up - VOLUME UP
+Esc-Down - VOLUME DOWN
+Esc-Left - MEDIA PREVIOUS
+Esc-Right - MEDIA NEXT
+Esc-F11 - VOLUME MUTE/UNMUTE
+Esc-F12 - MEDIA PLAY/PAUSE`
 const APP_VERSION = "0.1"

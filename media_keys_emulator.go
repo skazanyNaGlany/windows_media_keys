@@ -6,7 +6,7 @@ import (
 	"golang.org/x/sys/windows"
 )
 
-const VK_CONTROL = 0x11
+const VK_ESCAPE = 0x1B
 const VK_DOWN = 0x28
 const VK_UP = 0x26
 const VK_RIGHT = 0x27
@@ -36,18 +36,17 @@ func (mke *MediaKeysEmulator) EmulateInLoop() {
 	for {
 		time.Sleep(100 * time.Millisecond)
 
-		controlPressed, _, _ := mke.procGetAsyncKeyState.Call(uintptr(VK_CONTROL))
-
-		if controlPressed == 0 {
+		if escapePressed := mke.CallGetAsyncKeyState(VK_ESCAPE); escapePressed == 0 {
+			// ESCAPE not pressed
 			continue
 		}
 
-		downPressed, _, _ := mke.procGetAsyncKeyState.Call(uintptr(VK_DOWN))
-		upPressed, _, _ := mke.procGetAsyncKeyState.Call(uintptr(VK_UP))
-		rightPressed, _, _ := mke.procGetAsyncKeyState.Call(uintptr(VK_RIGHT))
-		leftPressed, _, _ := mke.procGetAsyncKeyState.Call(uintptr(VK_LEFT))
-		f11Pressed, _, _ := mke.procGetAsyncKeyState.Call(uintptr(VK_F11))
-		f12Pressed, _, _ := mke.procGetAsyncKeyState.Call(uintptr(VK_F12))
+		downPressed := mke.CallGetAsyncKeyState(VK_DOWN)
+		upPressed := mke.CallGetAsyncKeyState(VK_UP)
+		rightPressed := mke.CallGetAsyncKeyState(VK_RIGHT)
+		leftPressed := mke.CallGetAsyncKeyState(VK_LEFT)
+		f11Pressed := mke.CallGetAsyncKeyState(VK_F11)
+		f12Pressed := mke.CallGetAsyncKeyState(VK_F12)
 
 		if downPressed != 0 {
 			// volume down
@@ -84,7 +83,6 @@ func (mke *MediaKeysEmulator) EmulateInLoop() {
 				uintptr(0),
 				uintptr(0),
 				uintptr(0))
-
 		} else if f12Pressed != 0 {
 			// play/pause
 			mke.procKeybdEvent.Call(
@@ -94,4 +92,18 @@ func (mke *MediaKeysEmulator) EmulateInLoop() {
 				uintptr(0))
 		}
 	}
+}
+
+func (mke *MediaKeysEmulator) CallGetAsyncKeyState(key int) uintptr {
+	state, _, _ := mke.procGetAsyncKeyState.Call(uintptr(key))
+
+	if state&0x1 != 0 {
+		// clear the least significant bit
+		// as it's written in the documentation:
+		// if the least significant bit is set, the key was pressed
+		// after the previous call to GetAsyncKeyState.
+		state ^= 0x1
+	}
+
+	return state
 }

@@ -7,12 +7,14 @@ import (
 )
 
 type Instance struct {
-	thisCmdLineRun string
-	runningProcess *process.Process
+	thisCmdLineRun       string
+	thisCmdLineRunQuoted string
+	runningProcess       *process.Process
 }
 
 func (i *Instance) Init() {
 	i.thisCmdLineRun = os.Args[0] + " " + RUN_COMMAND
+	i.thisCmdLineRunQuoted = "\"" + os.Args[0] + "\" " + RUN_COMMAND
 }
 
 func (i *Instance) IsRunnnig() bool {
@@ -39,7 +41,7 @@ func (i *Instance) IsRunnnig() bool {
 			continue
 		}
 
-		if cmd == i.thisCmdLineRun {
+		if cmd == i.thisCmdLineRun || cmd == i.thisCmdLineRunQuoted {
 			i.runningProcess = iprocess
 			return true
 		}

@@ -16,8 +16,19 @@ Version %v
 
 Esc-Up - VOLUME UP
 Esc-Down - VOLUME DOWN
-Esc-Left - MEDIA PREVIOUS
-Esc-Right - MEDIA NEXT
-Esc-F11 - VOLUME MUTE/UNMUTE
-Esc-F12 - MEDIA PLAY/PAUSE`
-const APP_VERSION = "0.1"
+Esc-Left - PREVIOUS MEDIA
+Esc-Right - NEXT MEDIA
+
+Esc-F4 - SUSPEND COMPUTER
+Esc-F7 - RESTART COMPUTER
+Esc-F8 - SHUTDOWN COMPUTER
+
+Esc-F11 - TOGGLE MUTE
+Esc-F12 - TOGGLE PLAY
+
+If the suspend feature is not working properly, you
+may need to disable hibernation:
+
+powercfg -hibernate off
+`
+const APP_VERSION = "0.2"

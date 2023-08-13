@@ -8,7 +8,6 @@ import (
 
 	"fyne.io/fyne/v2/app"
 	"github.com/skazanyNaGlany/windows_media_keys/windows/main_window"
-	"github.com/sqweek/dialog"
 )
 
 func main() {
@@ -39,25 +38,9 @@ func isRunCommand() bool {
 	return len(os.Args) == 2 && os.Args[1] == RUN_COMMAND
 }
 
-func sleepCallback() bool {
-	return dialog.Message("%s", "Do you want to suspend the computer ?").Title(APP_NAME).YesNo()
-}
-
-func restartCallback() bool {
-	return dialog.Message("%s", "Do you want to restart the computer ?").Title(APP_NAME).YesNo()
-}
-
-func shutdownCallback() bool {
-	return dialog.Message("%s", "Do you want to shutdown the computer ?").Title(APP_NAME).YesNo()
-}
-
 func run() {
 	emulator := MediaKeysEmulator{}
 	emulator.Init()
-
-	emulator.sleepHook = sleepCallback
-	emulator.restartHook = restartCallback
-	emulator.shutdownHook = shutdownCallback
 
 	emulator.EmulateInLoop()
 }

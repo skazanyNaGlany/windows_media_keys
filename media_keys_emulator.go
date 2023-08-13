@@ -53,20 +53,20 @@ func (mke *MediaKeysEmulator) EmulateInLoop() {
 	for {
 		time.Sleep(100 * time.Millisecond)
 
-		if escapePressed := mke.CallGetAsyncKeyState(VK_ESCAPE); escapePressed == 0 {
+		if escapePressed := mke.callGetAsyncKeyState(VK_ESCAPE); escapePressed == 0 {
 			// ESCAPE not pressed
 			continue
 		}
 
-		downPressed := mke.CallGetAsyncKeyState(VK_DOWN)
-		upPressed := mke.CallGetAsyncKeyState(VK_UP)
-		rightPressed := mke.CallGetAsyncKeyState(VK_RIGHT)
-		leftPressed := mke.CallGetAsyncKeyState(VK_LEFT)
-		f4Pressed := mke.CallGetAsyncKeyState(VK_F4)
-		f7Pressed := mke.CallGetAsyncKeyState(VK_F7)
-		f8Pressed := mke.CallGetAsyncKeyState(VK_F8)
-		f11Pressed := mke.CallGetAsyncKeyState(VK_F11)
-		f12Pressed := mke.CallGetAsyncKeyState(VK_F12)
+		downPressed := mke.callGetAsyncKeyState(VK_DOWN)
+		upPressed := mke.callGetAsyncKeyState(VK_UP)
+		rightPressed := mke.callGetAsyncKeyState(VK_RIGHT)
+		leftPressed := mke.callGetAsyncKeyState(VK_LEFT)
+		f4Pressed := mke.callGetAsyncKeyState(VK_F4)
+		f7Pressed := mke.callGetAsyncKeyState(VK_F7)
+		f8Pressed := mke.callGetAsyncKeyState(VK_F8)
+		f11Pressed := mke.callGetAsyncKeyState(VK_F11)
+		f12Pressed := mke.callGetAsyncKeyState(VK_F12)
 
 		if downPressed != 0 {
 			// volume down
@@ -159,7 +159,7 @@ func (mke *MediaKeysEmulator) EmulateInLoop() {
 	}
 }
 
-func (mke *MediaKeysEmulator) CallGetAsyncKeyState(key int) uintptr {
+func (mke *MediaKeysEmulator) callGetAsyncKeyState(key int) uintptr {
 	state, _, _ := mke.procGetAsyncKeyState.Call(uintptr(key))
 
 	if state&0x1 != 0 {

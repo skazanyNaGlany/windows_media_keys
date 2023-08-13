@@ -1,6 +1,7 @@
 # Windows Media Keys
 Media keys on Windows, without actual media keys.
 
+
 ### Keymap for version 0.2
 Esc-Up - VOLUME UP
 
@@ -19,6 +20,12 @@ Esc-F8 - SHUTDOWN COMPUTER
 Esc-F11 - TOGGLE MUTE
 
 Esc-F12 - TOGGLE PLAY
+
+If the suspend feature is not working properly, you
+may need to disable hibernation:
+
+`powercfg -hibernate off`
+
 
 ### Keymap for version 0.1
 Esc-Up - Volume Up

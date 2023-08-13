@@ -74,6 +74,10 @@ func userInterface() {
 	mainWindow := main_window.MainWindow{}
 	mainWindow.Init(app)
 
+	if err := instance.Refresh(); err != nil {
+		LogDialog{}.Panicln(APP_NAME, err.Error())
+	}
+
 	running := instance.IsRunnnig()
 
 	mainWindow.SetRunOrTestButtonState(!running)
@@ -86,17 +90,27 @@ func userInterface() {
 	// }
 
 	mainWindow.GetRunOrTestButton().OnTapped = func() {
+		if err := instance.Refresh(); err != nil {
+			LogDialog{}.Panicln(APP_NAME, err.Error())
+		}
+
 		if instance.IsRunnnig() {
 			LogDialog{}.Panicln(APP_NAME, "Already running.")
 		}
 
-		exec.Command(os.Args[0], RUN_COMMAND).Start()
+		exec.Command(
+			instance.GetExePathname(),
+			RUN_COMMAND).Start()
 
 		mainWindow.SetRunOrTestButtonState(false)
 		mainWindow.SetKillButtonState(true)
 	}
 
 	mainWindow.GetKillButton().OnTapped = func() {
+		if err := instance.Refresh(); err != nil {
+			LogDialog{}.Panicln(APP_NAME, err.Error())
+		}
+
 		instance.IsRunnnig()
 		instance.Kill()
 
